@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>instal apache mysql php phpmyadmin di archlinux</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/dropdown.js"></script>
+</head>
+
+<body>
+    <div class="container">
+<header>
+    <div class="dec"><script src="../js/javascript.js"></script></div>
+    <div class="test-bg">
+        <button class="test" onclick="toggleTheme('tema1')">1</button>
+        <button class="test" onclick="toggleTheme('tema2')">2</button>
+        <button class="test" onclick="toggleTheme('tema3')">3</button>
+    </div>
+    <div class="text-header">
+        <img src="../img/folder.png" width="120px" height="120px" alt="folder"/>
+        <h1>DOCUMENTASI</h1>
+        <p>Dengan mendokumentasikan ilmu dan insight yang saya dapatkan di blog, saya pun dapat belajar, mengulas, dan berbagi secara bersamaan.</p>
+    </div>
+</header>
+
+<nav>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn"><img src="../img/logo/menu.svg" width="15px" height="15px" alt="*"/> Menu</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="../index.html"><img src="../img/logo/home.svg" width="15px" height="15px" alt="1"/> Home</a>
+                <a href="../tentang.html"><img src="../img/logo/tentang.svg" width="15px" height="15px" alt="2"/> Tentang</a>
+                <a href="arsip.html"><img src="../img/logo/arsip.svg" width="15px" height="15px" alt="3"/> Arsip</a>
+            </div>
+    </div>
+</nav>
+
+<content>
+    <div class="content-box">
+        <br>
+        <h2><b>Instal Apache, MySQL, PHP dan phpMyAdmin di Archlinux</b></h2>
+        </br>
+        <mark> Ditulis: 10 Jun 2021</mark>
+        <br><a href="../index.html">Home</a> > <a href="arsip.html">Arsip</a> > Instal Apache, MySQL, PHP dan phpMyAdmin di Archlinux</br>
+        <button class="accordion"><img src="../img/logo/tag-arsip.svg" height="35px" width="35px"/></button>
+        <div class="panel">
+            <b>Arsip</b>
+            <hr class="dashed"/><br>
+            <script src="../js/arsip.js"></script>
+        </div>
+        <br>
+        <h1><b><p class="center">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p></b></h1>
+        <br><hr class="dashed"/>
+        <br>Apache adalah web server yang sangat populer, yang dikembangkan oleh Apache Software Foundation. Kali ini saya akan membagikan pengalaman saya cara menyiapkan Apache dan cara mengintegrasikannya secara opsional dengan PHP.</br>
+        <br><h3><b>Instalasi</b></h3>
+        <hr class="dashed"/></br>
+        <div class="c">
+            <P>1. sudo pacman -S php apache mariadb php-apache phpmyadmin
+            <P>2. yay -S php-mcrypt
+        </div>
+        <br><h3><b>Konfigurasi</b></h3>
+        <hr class="dashed"/></br>
+        <div class="c">
+            sudo nano /etc/httpd/conf/httpd.conf
+        </div>
+        <br>beri tanda pagar pada baris :
+        <div class="c">
+            LoadModule mpm_event_module modules/mod_mpm_event.so
+        </div>
+        <br>lalu hilangkan tanda pagar pada baris :
+        <div class="c">
+            LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+        </div>
+        <br>kemudian tambahkan seperti di bawah ini dan simpan :
+        <div class="c">
+            <p>LoadModule php_module modules/libphp.so
+            <p>AddHandler php-script .php
+            <p>Include conf/extra/php_module.conf
+        </div>
+        <br>Jalankan httpd-nya lalu cek statusnya :
+        <div class="c">
+            <p>1. sudo systemctl enable httpd
+            <p>2. sudo systemctl restart httpd
+            <p>3. sudo systemctl status httpd
+        </div>
+        <br><img class="img" src="../img/status-httpd.png" alt="img1"></img></br>
+        <br>Konfigurasi MySQL :
+        <div class="c">
+            sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+        </div>
+        <br> lalu Jalankan :
+        <div class="c">
+            <p>1. sudo systemctl enable mysqld
+            <p>2. sudo systemctl start mysqld
+            <p>3. sudo systemctl status mysqld
+        </div>
+        <br><img class="img" src="../img/status-mysqld.png" alt="img2"></img></br>
+        <br>jika sudah jalan, selanjutnya buat password root pada MySQL (jika ada pertanyaan tinggal enter-enter saja. contoh pada gambar dibawah) :
+        <div class="c">
+            mysql_secure_installation
+        </div>
+        <br><img class="img1" src="../img/pswd-mysql.png" alt="img3"></img></br>
+        <br> Kita tes php-nya, sebelumnya bikin file tes.php pada /srv/http/ :
+        <div class="c">
+            sudo nano /srv/http/test.php
+        </div>
+        <br><img class="img" src="../img/test-php.png" alt="img4"></img></br>
+        <br>Jalankan pada browser http://localhost/test.php :
+        <br><img class="img1" src="../img/php-browser.png" alt="img5"></img></br>
+        <br>selanjutnya Konfigurasi phpMyAdmin :
+        <div class="c">
+            sudo nano /etc/php/php.ini
+        </div>
+        <br>kemudian aktifkan ektensi berikut dengan menghilangkan titik koma " ; " di depannya atau jika tidak ada di list tambahkan extensi :
+        <div class="c">
+            <p>extension=pdo_mysql
+            <p>extension=mysqli
+            <p>extension=bz2
+            <p>extension=zip
+            <p>extension=iconv.so
+        </div>
+        <br> Konfigurasi file phpMyAdmin :
+        <div class="c">
+            sudo nano /etc/httpd/conf/extra/phpmyadmin.conf
+        </div>
+        <br><img class="img" src="../img/phpmyadmin.png" alt="img6"></img></br>
+        <br>tambahkan pada /etc/httpd/conf/httpd.conf lalu restart httpd :
+        <div class="c">
+            Include conf/extra/phpmyadmin.conf
+        </div>
+        <br>Jalankan pada browser http://localhost/phpmyadmin/ :
+        <br><img class="img1" src="../img/phpmyadmin-browser.png" alt="img7"></img></br>
+        <br>Semoga Bermanfaat.</br>
+        <br><h3><b>Referensi</b></h3>
+        <hr class="dashed"/></br>
+        <ol>
+            <li><a href="https://wiki.archlinux.org/title/Apache_HTTP_Server">https://wiki.archlinux.org/title/Apache_HTTP_Server</a></li>
+            <li><a href="https://wiki.archlinux.org/title/PHP">https://wiki.archlinux.org/title/PHP</a></li>
+            <li><a href="https://wiki.archlinux.org/title/phpMyAdmin">https://wiki.archlinux.org/title/phpMyAdmin</a></li>
+        <ol>
+        
+        <div class="comment">
+            Tambahkan komentar anda :
+            <form onSubmit="return false">
+                    <input type="text" id="nama" placeholder="Nama"/><br>
+                    <textarea rows="7" id="komentar" placeholder="komentar anda"></textarea><br>
+                    <button id="tombol" class="kirim">Tambahkan</button>
+            </form>
+            *berkomentar dengan bijak dan sopan.
+        </div>
+        <div class="isi">
+            <mark id="hasil"></mark>
+            <br>
+            <span id="hasil2"></span>
+        </div>
+    </div>
+</content>
+
+<footer>
+    <p>&copy  2021 wahyu febriyan / 171011401781</p>
+    <div class="text-tentang">
+        <b>TENTANG</b>
+        <p>Blog ini saya buat untuk tugas kuliah pemrograman web 1, sekaligus sebagai media online belajar saya. Blog ini sebagian besar berisi catatan yang berhubungan dengan teknologi komputer, khususnya Sistem Operasi GNU/Linux.
+    </div>
+</footer>
+
+    </div>
+
+    <script src="../js/acor.js"></script>
+    <script src="../js/form.js"></script>
+    <script src="../js/themes.js"></script>
+</body>
+
+</html>

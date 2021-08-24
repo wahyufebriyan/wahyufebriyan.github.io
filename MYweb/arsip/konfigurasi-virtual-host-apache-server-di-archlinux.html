@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Konfigurasi Virtual Host Apache Server Di ArchLinux</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/dropdown.js"></script>
+</head>
+
+<body>
+    <div class="container">
+<header>
+    <div class="dec"><script src="../js/javascript.js"></script></div>
+    <div class="test-bg">
+        <button class="test" onclick="toggleTheme('tema1')">1</button>
+        <button class="test" onclick="toggleTheme('tema2')">2</button>
+        <button class="test" onclick="toggleTheme('tema3')">3</button>
+    </div>
+    <div class="text-header">
+        <img src="../img/folder.png" width="120px" height="120px" alt="folder"/>
+        <h1>DOCUMENTASI</h1>
+        <p>Dengan mendokumentasikan ilmu dan insight yang saya dapatkan di blog, saya pun dapat belajar, mengulas, dan berbagi secara bersamaan.</p>
+    </div>
+</header>
+
+<nav>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn"><img src="../img/logo/menu.svg" width="15px" height="15px" alt="*"/> Menu</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="../index.html"><img src="../img/logo/home.svg" width="15px" height="15px" alt="1"/> Home</a>
+                <a href="../tentang.html"><img src="../img/logo/tentang.svg" width="15px" height="15px" alt="2"/> Tentang</a>
+                <a href="arsip.html"><img src="../img/logo/arsip.svg" width="15px" height="15px" alt="3"/> Arsip</a>
+            </div>
+    </div>
+</nav>
+
+<content>
+    <div class="content-box">
+        <br>
+        <h2><b>Konfigurasi Virtual Host Apache Server Di ArchLinux</b></h2>
+        </br>
+        <mark> Ditulis: 12 Jun 2021</mark>
+        <br><a href="../index.html">Home</a> > <a href="arsip.html">Arsip</a> > Konfigurasi Virtual Host Apache Server Di ArchLinux</br>
+        <button class="accordion"><img src="../img/logo/tag-arsip.svg" height="35px" width="35px"/></button>
+        <div class="panel">
+            <b>Arsip</b>
+            <hr class="dashed"/><br>
+            <script src="../js/arsip.js"></script>
+        </div>
+        <br>
+        <h1><b><p class="center">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p></b></h1>
+        <br><hr class="dashed"/>
+        <br>Istilah Virtual Host mengacu pada praktik menjalankan lebih dari satu situs web (seperti company1.example.com dan company2.example.com) pada satu mesin. Host virtual dapat "berbasis IP", artinya Anda memiliki alamat IP yang berbeda untuk setiap situs web, atau "berbasis nama", artinya Anda memiliki beberapa nama yang berjalan di setiap alamat IP. Fakta bahwa mereka berjalan di server fisik yang sama tidak terlihat oleh pengguna akhir.
+        Apache adalah salah satu server pertama yang mendukung host virtual berbasis IP secara langsung. Apache versi 1.1 dan yang lebih baru mendukung host virtual (vhosts) berbasis IP dan berbasis nama. Varian terakhir dari host virtual kadang-kadang juga disebut host virtual berbasis host atau non-IP.</br>
+        <br><h3><b>Konfigurasi</b></h3>
+        <hr class="dashed"/>
+        <br>Pertama edit file pada /etc/httpd/conf/httpd.conf :
+        <div class="c">
+            sudo nano /etc/httpd/conf/httpd.conf
+        </div>
+        <br>lalu hilangkan tanda pagar pada baris :
+        <div class="c">
+            Include conf/extra/httpd-vhosts.conf
+        </div>
+        <br>kemudian Konfigurasi hosts:
+        <div class="c">
+            sudo /etc/hosts
+        </div>
+        <br><img class="img" src="../img/v-host.png" alt="img1"></img></br>
+        <br>kemudian buat folder vhosts:
+        <div class="c">
+            sudo mkdir /etc/httpd/conf/vhosts
+        </div>
+        <br> selanjutnya buat file pada folder vhosts nama file sesuai nama yang di hosts :
+        <div class="c">
+            sudo nano /etc/httpd/conf/vhosts/contoh.dom
+        </div>
+        <br><img class="img" src="../img/contoh-dom.png" alt="img2"></img></br>
+        <br>aktifkan v-host dengan menambahkan pada /etc/httpd/conf/httpd.conf :
+        <div class="c">
+            Include conf/vhosts/contoh.dom
+        </div>
+        <br><img class="img" src="../img/enable-vhost.png" alt="img3"></img></br>
+        <br> jika sudah restart httpd:
+        <div class="c">
+            sudo systemctl restart httpd
+        </div>
+        <br>Jalankan pada browser http://contoh.dom :
+        <br><img class="img1" src="../img/contohweb.png" alt="img4"></img></br>
+        <br>Semoga Bermanfaat.</br>
+        <br><h3><b>Referensi</b></h3>
+        <hr class="dashed"/></br>
+        <ol>
+            <li><a href="https://wiki.archlinux.org/title/Apache_HTTP_Server#Virtual_hosts">https://wiki.archlinux.org/title/Apache_HTTP_Server#Virtual_hosts</a></li>
+            <li><a href="https://httpd.apache.org/docs/2.4/vhosts/">https://httpd.apache.org/docs/2.4/vhosts/</a></li>
+        <ol>
+
+        <div class="comment">
+            Tambahkan komentar anda :
+            <form onSubmit="return false">
+                    <input type="text" id="nama" placeholder="Nama"/><br>
+                    <textarea rows="7" id="komentar" placeholder="komentar anda"></textarea><br>
+                    <button id="tombol" class="kirim">Tambahkan</button>
+            </form>
+            *berkomentar dengan bijak dan sopan.
+        </div>
+        <div class="isi">
+            <mark id="hasil"></mark>
+            <br>
+            <span id="hasil2"></span>
+        </div>
+    </div>
+</content>
+
+<footer>
+    <p>&copy  2021 wahyu febriyan / 171011401781</p>
+    <div class="text-tentang">
+        <b>TENTANG</b>
+        <p>Blog ini saya buat untuk tugas kuliah pemrograman web 1, sekaligus sebagai media online belajar saya. Blog ini sebagian besar berisi catatan yang berhubungan dengan teknologi komputer, khususnya Sistem Operasi GNU/Linux.
+    </div>
+</footer>
+
+    </div>
+
+    <script src="../js/acor.js"></script>
+    <script src="../js/form.js"></script>
+    <script src="../js/themes.js"></script>
+</body>
+
+</html>

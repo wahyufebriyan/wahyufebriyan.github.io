@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tugas web 1</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/dropdown.js"></script>
+</head>
+
+<body>
+    <div class="container">
+<header>
+    <div class="dec"><script src="../js/javascript.js"></script></div>
+    <div class="test-bg">
+        <button class="test" onclick="toggleTheme('tema1')">1</button>
+        <button class="test" onclick="toggleTheme('tema2')">2</button>
+        <button class="test" onclick="toggleTheme('tema3')">3</button>
+    </div>
+    <div class="text-header">
+        <img src="../img/folder.png" width="120px" height="120px" alt="folder"/>
+        <h1>DOCUMENTASI</h1>
+        <p>Dengan mendokumentasikan ilmu dan insight yang saya dapatkan di blog, saya pun dapat belajar, mengulas, dan berbagi secara bersamaan.</p>
+    </div>
+</header>
+
+<nav>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn"><img src="../img/logo/menu.svg" width="15px" height="15px" alt="*"/> Menu</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="../index.html"><img src="../img/logo/home.svg" width="15px" height="15px" alt="1"/> Home</a>
+                <a href="../tentang.html"><img src="../img/logo/tentang.svg" width="15px" height="15px" alt="2"/> Tentang</a>
+                <a href="arsip.html"><img src="../img/logo/arsip.svg" width="15px" height="15px" alt="3"/> Arsip</a>
+            </div>
+    </div>
+</nav>
+
+<content>
+    <div class="content-box">
+        <div class="cc">
+            <b>Arsip</b>
+            <hr class="dashed"/><br>
+            <script src="../js/arsip.js"></script>
+        </div>
+    </div>
+</content>
+
+<footer>
+    <p>&copy  2021 wahyu febriyan / 171011401781</p>
+    <div class="text-tentang">
+        <b>TENTANG</b>
+        <p>Blog ini saya buat untuk tugas kuliah pemrograman web 1, sekaligus sebagai media online belajar saya. Blog ini sebagian besar berisi catatan yang berhubungan dengan teknologi komputer, khususnya Sistem Operasi GNU/Linux.
+    </div>
+</footer>
+        
+    </div>
+
+    <script src="../js/themes.js"></script>
+</body>
+
+</html>
